@@ -43,10 +43,32 @@ img {
 }
 
 .button_area {
-	display: block;
+	display: flex;
+	border: none;
+	background-color: gray;
+	width: 450px;
+}
+
+.turn {
 	border: none;
 }
 
+.no_button {
+	border: none;
+
+	display: inline-block;
+	flex-grow: 1;
+}
+
 button {
-	width: 150px;
+	min-width: 150px;
+	background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    flex-grow: 1;
 }

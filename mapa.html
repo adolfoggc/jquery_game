@@ -24,15 +24,20 @@
 			<div id="id_0_4"></div><div id="id_1_4"></div><div id="id_2_4"></div><div id="id_3_4"></div><div id="id_4_4"></div>
 		</div>
 	</div>
-
+	<div class="turn">Turno 1</div>
 	<div class="button_area">
-		 <button type="button" class="up" onclick="up()">Cima</button><br><button type="button" class="left" onclick="left()">Esquerda</button><button type="button" class="down" onclick="down()">Baixo</button><button type="button" class="right"  onclick="right()">Direita</button> 
+		 <div class="no_button"></div><button type="button" class="up" onclick="up()">Cima</button><div class="no_button"></div>
+		 <br>
+	</div>
+	<div class="button_area">
+		 <button type="button" class="left" onclick="left()">Esquerda</button><button type="button" class="down" onclick="down()">Baixo</button><button type="button" class="right"  onclick="right()">Direita</button> 
 	</div>
 </body>
 
 <script>
 	var $cow_x = 0;
 	var $cow_y = 0;
+	var $turn = -3;
 	
 	$(document).ready(function(){
 
@@ -70,6 +75,11 @@
 
 	});
 
+	function end_turn(){
+		$turn +=1;
+		$(".turn").html("Turno "+$turn);
+	}
+
 	function draw_cow(){
 			$(".cow").remove();
 			var $cow_pos = "#id_"+$cow_x+"_"+$cow_y;
@@ -81,6 +91,7 @@
 			$cow_y -= 1;
 			draw_cow();
 		}
+		end_turn();
 	};
 
 	function down(){
@@ -88,6 +99,7 @@
 			$cow_y += 1;
 			draw_cow();
 		}
+		end_turn();
 	};
 
 	function left(){
@@ -95,13 +107,15 @@
 			$cow_x -= 1;
 			draw_cow();
 		}
-	}
+		end_turn();
+	};
 
 	function right(){
 		if ($cow_x < 4){
 			$cow_x += 1;
 			draw_cow();
 		}
+		end_turn();
 	};
 
 
