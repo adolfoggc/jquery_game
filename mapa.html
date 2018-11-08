@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mapa</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="grid">
+		<div class="row">
+			<div id="id_0_0"></div><div id="id_1_0"></div><div id="id_2_0"></div><div id="id_3_0"></div><div id="id_4_0"></div>
+		</div>
+		<div class="row">
+			<div id="id_0_1"></div><div id="id_1_1"></div><div id="id_2_1"></div><div id="id_3_1"></div><div id="id_4_1"></div>
+		</div>
+		<div class="row">
+			<div id="id_0_2"></div><div id="id_1_2"></div><div id="id_2_2"></div><div id="id_3_2"></div><div id="id_4_2"></div>
+		</div>
+		<div class="row">
+			<div id="id_0_3"></div><div id="id_1_3"></div><div id="id_2_3"></div><div id="id_3_3"></div><div id="id_4_3"></div>
+		</div>
+		<div class="row">
+			<div id="id_0_4"></div><div id="id_1_4"></div><div id="id_2_4"></div><div id="id_3_4"></div><div id="id_4_4"></div>
+		</div>
+	</div>
+</body>
+
+<script>
+	$(document).ready(function(){
+		y = [0,1,2,3,4];
+		x = [0,1,2,3,4]; 
+		$(x).each(function(){
+            x_val = this;
+        	$(y).each(function(){
+            	y_val = this;
+        		elemento = "#id_"+x_val+"_"+y_val;
+        		if (randomNumber = randomNumberFromRange(0, 1) % 2 == 1  ){
+        			$(elemento).addClass("grass");
+        		} else {
+        			$(elemento).addClass("water");
+        		}
+        	});
+        	cow_x = randomNumber = randomNumberFromRange(1, 5) % 5;
+        	cow_y = randomNumber = randomNumberFromRange(1, 5) % 5;
+        	cow_pos = "#id_"+cow_x+"_"+cow_y;
+        	
+        })
+		$(cow_pos).prepend('<img src="cow.png">');
+        ;
+
+   // jQuery methods go here...
+
+	});
+
+	//var randomNumber = randomNumberFromRange(0, 1);
+	function randomNumberFromRange(min,max)
+	{
+		return Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+
+
+</script>
+</html>

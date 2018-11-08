@@ -1,0 +1,43 @@
+
+.cell {
+	width: 100px;
+	height: 100px;
+}
+
+.grass {
+	background-color: green;
+}
+
+.water {
+	background-color: blue;
+}
+
+div {
+	border-width: 0px 10px 0px 0px;
+	border-color: black;
+	border-style: solid;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+}
+
+.grid {
+	border-width: 10px 0px 0px 10px;
+	border-color: black;
+	border-style: solid;
+	width: 550px;
+	height: 550px;
+}
+
+.row {
+	border-width: 0px 0px 10px 0px;
+	border-color: black;
+	border-style: solid;
+	width: 550px;
+	height: 100px;
+	display: block;
+}
+img {
+	width: 100px;
+	height: 100px;
+}
