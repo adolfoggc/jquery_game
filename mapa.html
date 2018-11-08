@@ -24,40 +24,96 @@
 			<div id="id_0_4"></div><div id="id_1_4"></div><div id="id_2_4"></div><div id="id_3_4"></div><div id="id_4_4"></div>
 		</div>
 	</div>
+
+	<div class="button_area">
+		 <button type="button" class="up" onclick="up()">Cima</button><br><button type="button" class="left" onclick="left()">Esquerda</button><button type="button" class="down" onclick="down()">Baixo</button><button type="button" class="right"  onclick="right()">Direita</button> 
+	</div>
 </body>
 
 <script>
+	var $cow_x = 0;
+	var $cow_y = 0;
+	
 	$(document).ready(function(){
-		y = [0,1,2,3,4];
-		x = [0,1,2,3,4]; 
-		$(x).each(function(){
-            x_val = this;
-        	$(y).each(function(){
-            	y_val = this;
-        		elemento = "#id_"+x_val+"_"+y_val;
+
+		function randomNumberFromRange(min,max)
+		{
+			return Math.floor(Math.random()*(max-min+1)+min);
+		}
+
+		//codigo para rodar no começo
+		var $y = [0,1,2,3,4];
+		var $x = [0,1,2,3,4]; 
+		$($x).each(function(){
+            var $x_val = this;
+        	$($y).each(function(){
+            	var $y_val = this;
+        		var $elemento = "#id_"+$x_val+"_"+$y_val;
         		if (randomNumber = randomNumberFromRange(0, 1) % 2 == 1  ){
-        			$(elemento).addClass("grass");
+        			$($elemento).addClass("grass");
         		} else {
-        			$(elemento).addClass("water");
+        			$($elemento).addClass("water");
         		}
         	});
-        	cow_x = randomNumber = randomNumberFromRange(1, 5) % 5;
-        	cow_y = randomNumber = randomNumberFromRange(1, 5) % 5;
-        	cow_pos = "#id_"+cow_x+"_"+cow_y;
+        	
         	
         })
-		$(cow_pos).prepend('<img src="cow.png">');
-        ;
+        $cow_x = randomNumber = randomNumberFromRange(1, 5) % 5;
+       	$cow_y = randomNumber = randomNumberFromRange(1, 5) % 5;
+        draw_cow();
+		//$(".cow").remove();
 
+
+		
+		
    // jQuery methods go here...
 
 	});
 
-	//var randomNumber = randomNumberFromRange(0, 1);
-	function randomNumberFromRange(min,max)
-	{
-		return Math.floor(Math.random()*(max-min+1)+min);
+	function draw_cow(){
+			$(".cow").remove();
+			var $cow_pos = "#id_"+$cow_x+"_"+$cow_y;
+			$($cow_pos).prepend('<img src="cow.png" class="cow">');
+	};
+
+	function up(){
+		if ($cow_y > 0){
+			$cow_y -= 1;
+			draw_cow();
+		}
+	};
+
+	function down(){
+		if ($cow_y < 4){
+			$cow_y += 1;
+			draw_cow();
+		}
+	};
+
+	function left(){
+		if ($cow_x > 0){
+			$cow_x -= 1;
+			draw_cow();
+		}
 	}
+
+	function right(){
+		if ($cow_x < 4){
+			$cow_x += 1;
+			draw_cow();
+		}
+	};
+
+
+	//eventos
+		$(".up").click(up());
+		$(".down").click(down());
+		$(".left").click(left());
+		$(".right").click(right());
+	//var randomNumber = randomNumberFromRange(0, 1);
+	
+
+
 
 
 

@@ -41,3 +41,12 @@ img {
 	width: 100px;
 	height: 100px;
 }
+
+.button_area {
+	display: block;
+	border: none;
+}
+
+button {
+	width: 150px;
+}
