@@ -1,18 +1,5 @@
 
 .cell {
-	width: 100px;
-	height: 100px;
-}
-
-.grass {
-	background-color: green;
-}
-
-.water {
-	background-color: blue;
-}
-
-div {
 	border-width: 0px 10px 0px 0px;
 	border-color: black;
 	border-style: solid;
@@ -21,13 +8,38 @@ div {
 	display: inline-block;
 }
 
+.grass {
+	background-color: green;
+}
+
+.ground {
+	background-color: #876b4d;
+}
+
+.water {
+	background-color: blue;
+}
+
+div {
+	
+}
+
 .grid {
 	border-width: 10px 0px 0px 10px;
 	border-color: black;
 	border-style: solid;
 	width: 550px;
 	height: 550px;
+	display: inline-block;
 }
+
+.interface {
+	height: 550px;
+	display: inline-block;
+	vertical-align: top;
+
+}
+
 
 .row {
 	border-width: 0px 0px 10px 0px;
@@ -44,7 +56,6 @@ img {
 
 .button_area {
 	display: flex;
-	border: none;
 	background-color: gray;
 	width: 450px;
 }
@@ -54,14 +65,12 @@ img {
 }
 
 .no_button {
-	border: none;
-
 	display: inline-block;
 	flex-grow: 1;
 }
 
 button {
-	min-width: 150px;
+	max-width: 150px;
 	background-color: #4CAF50;
     border: none;
     color: white;
