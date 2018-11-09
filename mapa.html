@@ -42,7 +42,7 @@
 	var $cow_y = 0;
 	var $turn = -3;
 	var $water_step = 0;
-	var $max_hunger = 5;
+	var $max_hunger = 12;
 	var $hunger = $max_hunger + 4;
 	$(document).ready(function(){
 
@@ -85,12 +85,14 @@
 	});
 
 	function end_turn(){
-		$turn +=1;
-		$(".turn").html("Turno "+$turn);
-		if (check_alive() == false){
-			$hunger = 0;
+		if (check_alive()==true){
+			$turn +=1;
+			$(".turn").html("Turno "+$turn);
+			if (check_alive() == false){
+				$hunger = 0;
+			}
+			check_hunger();
 		}
-		check_hunger();
 		//check_alive();
 	}
 
@@ -102,12 +104,27 @@
 				if ($hunger > $max_hunger){
 					$hunger = $max_hunger;
 				}
+				
 			}
+			if ($hunger == $max_hunger){
+				$(".hunger").html("Carai! Mucei!");	
+			} else {
+				$(".hunger").html("Nham! Nham!");
+			}
+			
 		} else {//if (className == "water" ){
 			$hunger -=1;
 		}
-		if ($hunger >= 0) {
-			$(".hunger").html("Saciado: "+$hunger);
+		if ($hunger <= $max_hunger/2 && get_cell_type() != "grass" && $hunger > $max_hunger/3) {
+			$(".hunger").html("...");
+		} else if ($hunger <= $max_hunger/3) {
+			$(".hunger").html("Fome do carai...");
+		} else if($hunger > $max_hunger/3 && get_cell_type() != "grass"){
+			$(".hunger").html("Tô de boa!");
+		}
+		if ($hunger == 0){
+			check_alive();
+			$(".hunger").html("MATOU A VAQUINHA, MONSTR@!!!")
 		}
 	}
 
