@@ -9,7 +9,7 @@
 }
 
 .grass {
-	background-color: green;
+	background-color: #1cc613;
 }
 
 .ground {
@@ -17,7 +17,17 @@
 }
 
 .water {
-	background-color: blue;
+	background-color: #2662ef;
+}
+
+.evil{
+	z-index: 10;
+	position: absolute;
+}
+
+.cow {
+	z-index: 0;
+	position: absolute;
 }
 
 div {
@@ -69,6 +79,10 @@ img {
 	flex-grow: 1;
 }
 
+.stay{
+	background-color: blue;
+}
+
 button {
 	max-width: 150px;
 	background-color: #4CAF50;
@@ -80,4 +94,5 @@ button {
     cursor: pointer;
     display: inline-block;
     flex-grow: 1;
+    font-weight: bold;
 }

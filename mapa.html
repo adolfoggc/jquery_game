@@ -32,7 +32,10 @@
 			 <br>
 		</div>
 		<div class="button_area">
-			 <button type="button" class="left" onclick="left()">Esquerda</button><button type="button" class="down" onclick="down()">Baixo</button><button type="button" class="right"  onclick="right()">Direita</button> 
+			 <button type="button" class="left" onclick="left()">Esquerda</button><button type="button" class="stay" onclick="end_turn()">Ficar Parado</button><button type="button" class="right"  onclick="right()">Direita</button> 
+		</div>
+		<div class="button_area">
+			<div class="no_button"></div><button type="button" class="down" onclick="down()">Baixo</button><div class="no_button"></div>
 		</div>
 	</div>
 </body>
@@ -40,16 +43,15 @@
 <script>
 	var $cow_x = 0;
 	var $cow_y = 0;
+	var $evil_x = 0;
+	var $evil_y = 0;
 	var $turn = -3;
 	var $water_step = 0;
 	var $max_hunger = 12;
 	var $hunger = $max_hunger + 4;
 	$(document).ready(function(){
 
-		function randomNumberFromRange(min,max)
-		{
-			return Math.floor(Math.random()*(max-min+1)+min);
-		}
+		
 
 		//codigo para rodar no começo
 		var $y = [0,1,2,3,4];
@@ -60,7 +62,7 @@
         	$($y).each(function(){
             	var $y_val = this;
         		var $elemento = "#id_"+$x_val+"_"+$y_val;
-        		$rand = randomNumberFromRange(0, 4);
+        		$rand = random(0, 4);
         		if ($rand == 0  ){
         			$($elemento).addClass("grass");
         		} else if($rand == 1 || $rand == 2) {
@@ -72,17 +74,24 @@
         	
         	
         });
-        $cow_x = randomNumberFromRange(0, 4);
-       	$cow_y = randomNumberFromRange(0, 4);
+        $cow_x = random(0, 4);
+       	$cow_y = random(0, 4);
         draw_cow();
 		//$(".cow").remove();
-
+		cow_msg();
+		place_evil();
 
 		
 		
    // jQuery methods go here...
 
 	});
+
+
+	function random(min,max)
+	{
+		return Math.floor(Math.random()*(max-min+1)+min);
+	}
 
 	function end_turn(){
 		if (check_alive()==true){
@@ -92,6 +101,7 @@
 				$hunger = 0;
 			}
 			check_hunger();
+			cow_msg();
 		}
 		//check_alive();
 	}
@@ -106,26 +116,12 @@
 				}
 				
 			}
-			if ($hunger == $max_hunger){
-				$(".hunger").html("Carai! Mucei!");	
-			} else {
-				$(".hunger").html("Nham! Nham!");
-			}
+			
 			
 		} else {//if (className == "water" ){
 			$hunger -=1;
 		}
-		if ($hunger <= $max_hunger/2 && get_cell_type() != "grass" && $hunger > $max_hunger/3) {
-			$(".hunger").html("...");
-		} else if ($hunger <= $max_hunger/3) {
-			$(".hunger").html("Fome do carai...");
-		} else if($hunger > $max_hunger/3 && get_cell_type() != "grass"){
-			$(".hunger").html("Tô de boa!");
-		}
-		if ($hunger == 0){
-			check_alive();
-			$(".hunger").html("MATOU A VAQUINHA, MONSTR@!!!")
-		}
+		
 	}
 
 	function get_position(){
@@ -160,6 +156,18 @@
 			$(".cow").remove();
 			var $cow_pos = "#id_"+$cow_x+"_"+$cow_y;
 			$($cow_pos).prepend('<img src="cow.png" class="cow">');
+	};
+
+	function place_evil(){
+		//$(".evil").remove();
+		$evil_x = random(0,4);
+		$evil_y = random(0,4);
+		while ($evil_x == $cow_x && $evil_y == $cow_y){
+			$evil_x = random(0,4);
+			$evil_y = random(0,4);
+		}
+		var $evil_pos = "#id_"+$evil_x+"_"+$evil_y;
+		$($evil_pos).prepend('<img src="evil.png" class="evil">');
 	};
 
 	function up(){
@@ -199,6 +207,7 @@
 	};
 
 
+
 	//eventos
 		$(".up").click(up());
 		$(".down").click(down());
@@ -206,7 +215,37 @@
 		$(".right").click(right());
 	//var randomNumber = randomNumberFromRange(0, 1);
 	
-
+	function cow_msg(){
+		var $msg;
+		if (get_cell_type() == "grass"){
+			if ($hunger == $max_hunger){
+				$msg = "Carai, mucei!!!";
+			} else {
+				$msg = "Nham! Nham!";
+			}
+		} else if (get_cell_type() == "water"){
+			if ($hunger <= $max_hunger/3){
+				$msg = "Splash, splash!";	
+			} else if ($hunger <= $max_hunger/3){
+				$msg = "SPLASH! SPLASH! SPLASH!!!"
+			} else {
+				$msg = "Splash..."
+			}
+		}  else {
+			if ($hunger <= $max_hunger/2 && get_cell_type() != "grass" && $hunger > $max_hunger/3) {
+				$msg = "...";
+			} else if ($hunger <= $max_hunger/3) {
+				$msg = "Fome do carai...";
+			} else if($hunger > $max_hunger/3 && get_cell_type() != "grass"){
+				$msg = "Moo moo moo!";
+			}
+			if ($hunger == 0){
+				check_alive();
+				$msg = "MATOU A VAQUINHA, MONSTR@!!!";
+			}
+		}
+		$(".hunger").html($msg);
+	}
 
 
 
