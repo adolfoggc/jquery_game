@@ -41,9 +41,9 @@
 	var $cow_x = 0;
 	var $cow_y = 0;
 	var $turn = -3;
-	var $hunger = 184;
 	var $water_step = 0;
-	
+	var $max_hunger = 5;
+	var $hunger = $max_hunger + 4;
 	$(document).ready(function(){
 
 		function randomNumberFromRange(min,max)
@@ -86,24 +86,29 @@
 
 	function end_turn(){
 		$turn +=1;
-		
 		$(".turn").html("Turno "+$turn);
+		if (check_alive() == false){
+			$hunger = 0;
+		}
 		check_hunger();
+		//check_alive();
 	}
 
 	function check_hunger(){
 		//var className = $(cell_id).attr('class').split(' ')[1];
 		if (get_cell_type() == "grass"){
-			if ($hunger < 180){
-				$hunger +=5;
-				if ($hunger > 180){
-					$hunger = 180;
+			if ($hunger < $max_hunger){
+				$hunger +=3;
+				if ($hunger > $max_hunger){
+					$hunger = $max_hunger;
 				}
 			}
 		} else {//if (className == "water" ){
 			$hunger -=1;
 		}
-		$(".hunger").html("Saciado: "+$hunger);
+		if ($hunger >= 0) {
+			$(".hunger").html("Saciado: "+$hunger);
+		}
 	}
 
 	function get_position(){
@@ -123,6 +128,17 @@
 		}
 	}
 
+	function check_alive(){
+		if ($hunger < 1){
+			$(".cow").remove();
+			var $cow_pos = "#id_"+$cow_x+"_"+$cow_y;
+			$($cow_pos).prepend('<img src="ghost.png" class="cow">');
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	function draw_cow(){
 			$(".cow").remove();
 			var $cow_pos = "#id_"+$cow_x+"_"+$cow_y;
@@ -131,7 +147,7 @@
 
 	function up(){
 		check_water();
-		if ($cow_y > 0 && $water_step == 0){
+		if ($cow_y > 0 && $water_step == 0 && check_alive() == true){
 			$cow_y -= 1;
 			draw_cow();
 		}
@@ -140,7 +156,7 @@
 
 	function down(){
 		check_water();
-		if ($cow_y < 4 && $water_step == 0){
+		if ($cow_y < 4 && $water_step == 0 && check_alive() == true){
 			$cow_y += 1;
 			draw_cow();
 		}
@@ -149,7 +165,7 @@
 
 	function left(){
 		check_water();
-		if ($cow_x > 0 && $water_step == 0){
+		if ($cow_x > 0 && $water_step == 0 && check_alive() == true){
 			$cow_x -= 1;
 			draw_cow();
 		}
@@ -158,7 +174,7 @@
 
 	function right(){
 		check_water();
-		if ($cow_x < 4 && $water_step == 0){
+		if ($cow_x < 4 && $water_step == 0 && check_alive() == true){
 			$cow_x += 1;
 			draw_cow();
 		}
